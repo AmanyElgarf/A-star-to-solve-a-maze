@@ -49,8 +49,7 @@ class Maze:
                     isBlocked = random.randint(1, 101)
                     if isBlocked > 70: child.cost = math.inf
                     open.append(child)
-
-        
+                    
         #if len(closed) == size*size: print("True")
         #else: print(false)
         #for i in range(0, size):
@@ -58,6 +57,7 @@ class Maze:
         #        if maze[i][j].cost == 1: print("o ", end =""),
         #        else: print("x ", end =""),
         #    print("\n")
+         return maze 
 
     def generate_blank_maze(self, size):
         maze =[]
