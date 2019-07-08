@@ -87,4 +87,4 @@ class Maze:
             libOfMazes.append(maze)
         return libOfMazes
 
-print (Maze().generate_blank_maze(3)[0][0].right_child.cost)
+print (Maze().generate_blank_maze(3))
