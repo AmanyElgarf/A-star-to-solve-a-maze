@@ -1,6 +1,7 @@
 from Node import Node
 
-class openList:
+
+class OpenList:
     def __init__(self):
         self.heap = [Node(-9,-9)]
         self.current_size = 0
@@ -64,30 +65,4 @@ class openList:
 
     def print(self):
         for i in range(1, self.current_size+1):
-            print(self.heap[i].f)
-
-k = openList()
-cell = Node(1, 1)
-cell.update_g(6)
-cell.update_h(6)
-
-cell1 = Node(1, 2)
-cell1.update_g(4)
-cell1.update_h(3)
-
-
-cell2 = Node(1, 3)
-cell3 = Node(4, 5)
-cell3.update_g(3)
-cell3.update_h(4)
-
-
-
-k.insert(cell)
-k.insert(cell1)
-k.insert(cell2)
-k.insert(cell3)
-
-k.del_min()
-k.print()
-
+            print(self.heap[i])
