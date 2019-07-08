@@ -1,8 +1,7 @@
-
 import math
 
-class SolveMaze:
 
+class SolveMaze:
     def forward_A_star(self, open_list, closed_list, start_node, goal_node, counter):
 
         while goal_node.f > open_list.get_min().f:
