@@ -4,28 +4,27 @@ class PriorityQueue:
         self.heap = [0]
         self.current_size = 0
 
-
     def is_empty(self):
         if self.current_size == 0:
             return True
         return False
 
     def parent_pos(self, child_pos):
-        return math.floor(child_pos/2)
+        return math.floor(int(child_pos/2))
 
     def left_child_pos(self, parent_pos):
-        return math.floor(parent_pos/2)
+        return math.floor(parent_pos*2)
 
     def right_child_pos(self, parent_pos):
         return math.floor((parent_pos * 2) + 1)
 
     def is_leaf(self, pos):
-        if pos <= self.current_size/2:
+        if pos <= int(self.current_size/2):
             return False
         return True
 
     def swap(self, parent_pos, child_pos):
-        self.heap[parent_pos] = self.heap[child_pos]
+        self.heap[parent_pos], self.heap[child_pos] = self.heap[child_pos], self.heap[parent_pos]
 
     def swim(self, child_pos):
         while self.heap[self.parent_pos(child_pos)] > self.heap[child_pos] and child_pos > 1:
@@ -60,8 +59,5 @@ class PriorityQueue:
 
 
     def print(self):
-        for i in range (1, self.current_size):
+        for i in range (1, self.current_size+1):
             print(self.heap[i])
-
-
-

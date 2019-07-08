@@ -57,11 +57,10 @@ class Maze:
         #        if maze[i][j].cost == 1: print("o ", end =""),
         #        else: print("x ", end =""),
         #    print("\n")
-         return maze 
+        #  return maze
 
     def generate_blank_maze(self, size):
         maze =[]
-
         for i in range(0, size):
             row = [None for x in range(size)]
             for k in range(0, size):
@@ -88,4 +87,4 @@ class Maze:
             libOfMazes.append(maze)
         return libOfMazes
 
-lib = Maze().generate_fifty_gridworlds(5)
+print (Maze().generate_blank_maze(3)[0][0].right_child.cost)
