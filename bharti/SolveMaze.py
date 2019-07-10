@@ -15,8 +15,7 @@ class SolveMaze:
                 child = current.traverse_children(i)
                 if child is None: continue
                 if (open_list.contains(child) == False) or (child not in closed_list):
-                    child.g = sys.maxint
-
+                    child.g = math.inf
                     child.h = child.update_h(goal_node)
                 #    child.search = counter
                 if child not in closed_list:
