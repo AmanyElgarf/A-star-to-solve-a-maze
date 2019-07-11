@@ -46,9 +46,8 @@ class OpenList:
 
     def sink(self, parent_pos):
 
-        while ((self.heap[parent_pos].f > self.heap[self.left_child_pos(parent_pos)].f or
-                self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f) and self.is_leaf(
-            parent_pos) is False):
+        while ( (self.is_leaf(parent_pos) is False) and (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.left_child_pos(parent_pos)].f or
+                                                         (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f)) ):
             k = self.heap[self.left_child_pos(parent_pos)].f > self.heap[self.right_child_pos(parent_pos)].f
             if k is True:
                 if self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f:
@@ -64,7 +63,8 @@ class OpenList:
                     break
 
     def insert(self, element):
-        if element  in self.heap:
+        #element.print()
+        if element in self.heap:
             for i in self.heap:
                 if i.x == element.x and i.y == element.y:
                     self.swim(self.heap.index(i))
@@ -74,17 +74,30 @@ class OpenList:
             self.current_size += 1
             self.swim(self.current_size)
 
+        # print("Insertion:")
+        # self.print()
+        #print()
+
+    def contains(self, element):
+        if element  in self.heap:
+            return True
+        return False
+
     def get_min(self):
         return self.heap[1]
 
     def del_min(self):
         min = self.heap[1]
         self.swap(1, self.current_size)
+        self.heap.pop()
         self.current_size -= 1
         self.sink(1)
+        print("Deletion:")
+        print("min: ", min.f, "(", min.x, ", ", min.y, ")")
+        print("Changed heap:")
+        # self.print()
         return min
-
 
     def print(self):
         for i in range(1, self.current_size+1):
-            print(self.heap[i].f)
+            print(self.heap[i].f, "(", self.heap[i].x, ", ", self.heap[i].y, ")")

@@ -98,26 +98,6 @@ class OpenList:
         # self.print()
         return min
 
-
     def print(self):
         for i in range(1, self.current_size+1):
             print(self.heap[i].f, "(", self.heap[i].x, ", ", self.heap[i].y, ")")
-
-
-
-
-
-amany = OpenList()
-x1 = Node(2, 0)
-x2 = Node(2, 1)
-
-x1.update_g(2)
-
-x2.update_g(4)
-
-amany.insert(x1)
-
-amany.del_min()
-
-
-amany.insert(x2)

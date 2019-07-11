@@ -18,27 +18,12 @@ class Node:
         self.top_child = None
         self.down_child = None
 
-    def manhattan_distance(self, current_cell, goal):
-        return abs(current_cell.x - goal.x) + abs(current_cell.y - goal.y)
-
-    def left_child(self, child):
-        self.left_child = child
-
-    def right_child(self, child):
-        self.right_child = child
-
-    def top_child(self, child):
-        self.top_child = child
-
-    def down_child(self, child):
-        self.down_child = child
+    def update_h(self, goal):
+        self.h = abs(self.x - goal.x) + abs(self.y - goal.y)
+        self.f = self.h + self.g
 
     def update_search(self, search):
         self.search = search
-
-    def update_h(self, new_h):
-        self.h = new_h
-        self.f = new_h + self.g
 
     def update_g(self, new_g):
         self.g = new_g
@@ -47,10 +32,14 @@ class Node:
     def update_parent(self, new_parent):
         self.parent = new_parent
 
+    def print(self):
+        print("(", self.x, ", ", self.y, ")")
 
-
-
-
+    def traverse_children(self, i):
+        if i == 0: return self.right_child
+        if i == 1: return self.left_child
+        if i == 2: return self.top_child
+        return self.down_child
 
 
 
