@@ -25,53 +25,39 @@ class Main:
                     elif currentNode.parent == [-1, -1]:
                         index = [-1, -1]
                         break
-        print("Path: ")
-        for a in reversed(path):
-            print( "(", a[0], ", ", a[1], ")")
-        print()
+        # print("Path: ")
+        # for a in reversed(path):
+        #     print( "(", a[0], ", ", a[1], ")")
+        # print()
         return path
 
 
-    def main(self, size, startEndIndex):
-
-
-        testMaze1 = Maze().generate_blank_maze(size)
-        testMaze1[1][2].cost = float("inf")
-        testMaze1[2][2].cost = float("inf")
-        testMaze1[3][2].cost = float("inf")
-        testMaze1[4][3].cost = float("inf")
-
-        # for i in range(0, size):
-        #     for j in range(0, size):
-        #         if (i == j):
-        #             testMaze1[i][j].cost = float("inf")
-        # for i in range(0, size):
-        #     for j in range(0, size):
-        #         if testMaze1[i][j].cost == 1: print("o ", end =""),
-        #         else: print("x ", end =""),
-        #     print("\n")
-
-        self.counter = 0
+    def main(self, size):
         self.agent_maze = Maze().generate_blank_maze(size)
-        self.actual_maze = testMaze1
-        if (len(startEndIndex) != 4):
-            print("startEndIndex needs to include 4 indices")
-            return
+        self.actual_maze = Maze().generate_actual_maze(size)
 
-        #start and goal positions that are not blocked
-        #remove start == goal node if statement before submitting
-        start_node = self.agent_maze[startEndIndex[0]][startEndIndex[1]]
-        goal_node = self.agent_maze[startEndIndex[2]][startEndIndex[3]]
-        start_node_actual = self.actual_maze[start_node.x][start_node.y]
-        goal_node_actual = self.actual_maze[goal_node.x][goal_node.y]
-        if (start_node_actual.cost != 1) & (goal_node_actual.cost != 1):
-            print("Error: start node or goal node blocked")
-            return
+        # start and goal positions that are not blocked
+        # remove start == goal node if statement before submitting
+        a = []
+        start_node = None
+        goal_node = None
+        start_node_actual = None
+        goal_node_actual = None
 
+        while True:
+            a = []
+            for x in range(4):
+                r = random.randint(0, size - 1)
+                a.append(r)
+            start_node = self.agent_maze[a[0]][a[1]]
+            goal_node = self.agent_maze[a[2]][a[3]]
+            start_node_actual = self.actual_maze[start_node.x][start_node.y]
+            goal_node_actual = self.actual_maze[goal_node.x][goal_node.y]
+            if (start_node_actual.cost == 1) & (goal_node_actual.cost == 1) & (start_node != goal_node):
+                print(a)
+                break
 
-
-
-        #tell agent map whether immediate cells are blocked or not
+        # tell agent map whether immediate cells are blocked or not
         for i in range(0, 4):
             child = start_node_actual.traverse_children(i)
             if child is not None:
@@ -85,18 +71,25 @@ class Main:
                     start_node.down_child.cost = child.cost
 
         solvedMaze = []
+        lastClosedList = None
+        goalCost = float("inf")
+        self.counter = 0
 
         while start_node != goal_node:
             self.counter += 1
-
-            #print("#", self.counter, " Repeated A* Search")
-            #print("Agent Maze")
+            print("#", self.counter, " Repeated Adaptive A* Search")
+            # print("Agent Maze")
             # for i in range(0, size):
             #     for j in range(0, size):
-            #         if testMaze1[i][j].cost == 1: print("o ", end =""),
-            #         else: print("x ", end =""),
+            #         if self.agent_maze[i][j].cost == 1:
+            #             print("o ", end=""),
+            #         else:
+            #             print("x ", end=""),
             #     print("\n")
-            start_node.print()
+            # print("Start:",)
+            # start_node.print()
+
+
             start_node.update_g(0)
             start_node.update_h(goal_node)
             start_node.update_parent([-1, -1])
@@ -108,15 +101,11 @@ class Main:
             open_list.insert(start_node)
             closed_list = set()
 
-            SolveMaze().forward_A_star(open_list, closed_list, goal_node, self.counter)
-            # print("Open")
-            # open_list.print()
-            # print("Closed:", len(closed_list))
-            # for elem in closed_list:
-            #     elem.print()
-            # if open_list.is_empty() is True and goal_node not in closed_list:
-            #     print("I can't reach the target")
-            #     return
+            SolveMaze().adaptive_A_star(open_list, closed_list, goal_node, lastClosedList, goalCost)
+
+            if open_list.is_empty() is True and goal_node not in closed_list:
+                print("I can't reach the target")
+                return
 
             path = self.traverse_path(goal_node)
 
@@ -137,8 +126,6 @@ class Main:
                             break
                 if isChild:
                     if currentNode.cost != 1:
-                        print("Blocked Node")
-                        currentNode.print()
                         start_node = self.agent_maze[ parentNode.x][parentNode.y]
                         self.agent_maze[ currentNode.x] [currentNode.y ].cost = float("inf")
                         solvedMaze.pop()
@@ -150,16 +137,20 @@ class Main:
                     print("A* search error, parent does not have such child")
                     return
 
+            lastClosedList = closed_list
+            goalCost = goal_node.g
             print("#", self.counter, " Repeated A* Search closedList Length: ", len(closed_list))
 
             if self.agent_maze[parentNode.x][parentNode.y] == goal_node:
                 print("I reached the goal: ")
-                # for a in solvedMaze:
-                #     a.print()
+                for a in solvedMaze:
+                     a.print()
                 return
 
 
-for x in range(0,1):
-    Main().main(5, [4,2,4,4])
+for x in range(0,21):
+    print("Maze #", x)
+    Main().main(20)
+    print()
     print()
     print()

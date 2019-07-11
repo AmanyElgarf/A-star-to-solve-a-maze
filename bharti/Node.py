@@ -22,6 +22,11 @@ class Node:
         self.h = abs(self.x - goal.x) + abs(self.y - goal.y)
         self.f = self.h + self.g
 
+    def update_hnew(self, goalC):
+        self.h = goalC - self.g
+        self.f = self.h + self.g
+
+
     def left_child(self, child):
         self.left_child = child
 

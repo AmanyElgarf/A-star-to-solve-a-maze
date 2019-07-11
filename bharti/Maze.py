@@ -42,21 +42,25 @@ class Maze:
                 if (child is None): continue
                 # add child to open list (even if blocked to make sure all neighbors visited)
                 if (child not in closed) & (child not in open):
-                    isBlocked = random.randint(1, 101)
+                    isBlocked = random.randint(1, 100)
                     if isBlocked > 70: child.cost = float("inf")
                     open.append(child)
 
-        if len(closed) == size * size:
-            print("True")
-        else:
-            print("False")
-        for i in range(0, size):
-            for j in range(0, size):
-                if maze[i][j].cost == 1:
-                    print("o ", end=""),
-                else:
-                    print("x ", end=""),
-            print("\n")
+        #if len(closed) == size * size:
+        #    print("True")
+        #else:
+        #    print("False")
+        # for i in range(0,size):
+        #     print(i, " ", end=""),
+        # for i in range(0, size):
+        #     for j in range(-1, size):
+        #         if j == 0:
+        #             print(i, " ", end=""),
+        #         if maze[i][j].cost == 1:
+        #             print("o ", end=""),
+        #         else:
+        #             print("x ", end=""),
+        #    print("\n")
         return maze
 
     def generate_blank_maze(self, size):
