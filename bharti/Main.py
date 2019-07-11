@@ -34,7 +34,6 @@ class Main:
 
     def main(self, size):
 
-        self.counter = 0
         self.agent_maze = Maze().generate_blank_maze(size)
         self.actual_maze = Maze().generate_actual_maze(size)
 
@@ -73,17 +72,14 @@ class Main:
                     start_node.down_child.cost = child.cost
 
         solvedMaze = []
-
+        self.counter = 0
         while start_node != goal_node:
-            self.counter += 1
             start_node.update_g(0)
             start_node.update_h(goal_node)
-            start_node.update_search(self.counter)
             start_node.update_parent([-1, -1])
 
             goal_node.update_g(float("inf"))
             goal_node.update_h(goal_node)
-            goal_node.update_search(self.counter)
 
             open_list = OpenList()
             open_list.insert(start_node)
@@ -91,7 +87,7 @@ class Main:
 
             SolveMaze().forward_A_star(open_list, closed_list, goal_node, self.counter)
 
-            if open_list.is_empty is True:
+            if open_list.is_empty() is True and goal_node not in closed_list:
                 print("I can't reach the target")
                 return
 
@@ -108,7 +104,7 @@ class Main:
                 for j in range(0,4):
                     child = parentNode.traverse_children(j)
                     if child is not None:
-                        child.print()
+                        #child.print()
                         if child == currentNode:
                             isChild = True
                             break
@@ -127,11 +123,12 @@ class Main:
 
             if self.agent_maze[parentNode.x][parentNode.y] == goal_node:
                 print("I reached the goal: ")
-                for a in solvedMaze:
-                    a.print()
+                #for a in solvedMaze:
+                #    a.print()
                 return
 
 
-Main().main(4)
-
-
+for x in range(0, 51):
+    print(x)
+    Main().main(101)
+    print()
