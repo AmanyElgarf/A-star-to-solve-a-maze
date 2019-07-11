@@ -46,9 +46,8 @@ class OpenList:
 
     def sink(self, parent_pos):
 
-
-        while ( (self.is_leaf(parent_pos) is False) and (self.heap[parent_pos].f > self.heap[self.left_child_pos(parent_pos)].f or
-                self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f) ):
+        while ( (self.is_leaf(parent_pos) is False) and (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.left_child_pos(parent_pos)].f or
+                                                         (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f)) ):
             k = self.heap[self.left_child_pos(parent_pos)].f > self.heap[self.right_child_pos(parent_pos)].f
             if k is True:
                 if self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f:
@@ -64,6 +63,7 @@ class OpenList:
                     break
 
     def insert(self, element):
+        #element.print()
         if element in self.heap:
             for i in self.heap:
                 if i.x == element.x and i.y == element.y:
@@ -74,8 +74,8 @@ class OpenList:
             self.current_size += 1
             self.swim(self.current_size)
 
-        print("Insertion:")
-        self.print()
+        # print("Insertion:")
+        # self.print()
         #print()
 
     def contains(self, element):
@@ -89,16 +89,35 @@ class OpenList:
     def del_min(self):
         min = self.heap[1]
         self.swap(1, self.current_size)
+        self.heap.pop()
         self.current_size -= 1
         self.sink(1)
         print("Deletion:")
         print("min: ", min.f, "(", min.x, ", ", min.y, ")")
         print("Changed heap:")
-        self.print()
-        #print()
+        # self.print()
         return min
 
 
     def print(self):
         for i in range(1, self.current_size+1):
             print(self.heap[i].f, "(", self.heap[i].x, ", ", self.heap[i].y, ")")
+
+
+
+
+
+amany = OpenList()
+x1 = Node(2, 0)
+x2 = Node(2, 1)
+
+x1.update_g(2)
+
+x2.update_g(4)
+
+amany.insert(x1)
+
+amany.del_min()
+
+
+amany.insert(x2)
