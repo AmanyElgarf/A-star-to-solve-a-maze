@@ -46,7 +46,7 @@ class OpenList:
 
     def sink(self, parent_pos):
 
-        while ( (self.is_leaf(parent_pos) is False) and (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.left_child_pos(parent_pos)].f or
+        while ((self.is_leaf(parent_pos) is False) and (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.left_child_pos(parent_pos)].f or
                                                          (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f)) ):
             k = self.heap[self.left_child_pos(parent_pos)].f > self.heap[self.right_child_pos(parent_pos)].f
             if k is True:
@@ -63,7 +63,6 @@ class OpenList:
                     break
 
     def insert(self, element):
-        #element.print()
         if element in self.heap:
             for i in self.heap:
                 if i.x == element.x and i.y == element.y:
@@ -79,7 +78,7 @@ class OpenList:
         #print()
 
     def contains(self, element):
-        if element  in self.heap:
+        if element in self.heap:
             return True
         return False
 
@@ -92,12 +91,15 @@ class OpenList:
         self.heap.pop()
         self.current_size -= 1
         self.sink(1)
-        print("Deletion:")
-        print("min: ", min.f, "(", min.x, ", ", min.y, ")")
-        print("Changed heap:")
+        # print("Deletion:")
+        # print("min: ", min.f, "(", min.x, ", ", min.y, ")")
+        # print("Changed heap:")
         # self.print()
         return min
 
     def print(self):
         for i in range(1, self.current_size+1):
             print(self.heap[i].f, "(", self.heap[i].x, ", ", self.heap[i].y, ")")
+
+
+
