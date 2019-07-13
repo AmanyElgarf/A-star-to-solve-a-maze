@@ -58,6 +58,11 @@ class Main:
             path.reverse()
             for i in path:
                 if i.cost == self.actual_maze[i.x][i.y].cost:
+                    if i in self.solvedMaze:
+                        if i is self.start_node:
+                            continue
+                        self.solvedMaze.pop(self.solvedMaze.index(i))
+                        continue
                     self.solvedMaze.append(i)
                 else:
                     start_node = self.solvedMaze.pop()
@@ -65,6 +70,7 @@ class Main:
                     self.bolckage_status_of_children(start_node, start_node_actual)
                     break
             if self.solvedMaze[len(self.solvedMaze)-1] == self.goal_node:
+
                 print("I reached the goal: ")
                 for a in self.solvedMaze:
                     a.print()
@@ -72,6 +78,7 @@ class Main:
 
     def main(self):
         start_node_actual, goal_node_actual = self.generate_random_start_and_goal_nodes()
+        print(start_node_actual.x, start_node_actual.y, goal_node_actual.x, goal_node_actual.y)
         self.repeated_forward(start_node_actual, goal_node_actual)
 
 
