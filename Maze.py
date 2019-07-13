@@ -48,13 +48,14 @@ class Maze:
         else:
             print("False")
 
-        # for i in range(0, size):
-        #     for j in range(0, size):
-        #         if maze[i][j].cost == 1:
-        #             print("o ", end=""),
-        #         else:
-        #             print("x ", end=""),
-        #     print("\n")
+        for i in range(0, size):
+            for j in range(0, size):
+                if maze[i][j].cost == 1:
+                    print("o ", end=""),
+                else:
+                    print("x ", end=""),
+            print("\n")
+
         return maze
 
 

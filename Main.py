@@ -6,15 +6,23 @@ from OpenList import OpenList
 
 class Main:
     def traverse_path(self, goal_node, start_node):
-        path = []
-        index = [goal_node.x, goal_node.y]
+        path = [goal_node]
         currentNode = goal_node
         while currentNode is not start_node:
-            path.append(index)
             currentNode = currentNode.parent
-            index = [currentNode.x, currentNode.y]
-        path.append([start_node.x, start_node.y])
+            path.append(currentNode)
         return path
+
+    def bolckage_status_of_children(self, start_node, start_node_actual):
+        for i in range(0, 4):
+            if i == 0 and start_node_actual.right_child is not None:
+                start_node.right_child.cost = start_node_actual.right_child.cost
+            elif i == 1 and start_node_actual.left_child is not None:
+                start_node.left_child.cost = start_node_actual.left_child.cost
+            elif i == 2 and start_node_actual.top_child is not None:
+                start_node.top_child.cost = start_node_actual.top_child.cost
+            elif i == 3 and start_node_actual.down_child is not None:
+                start_node.down_child.cost = start_node_actual.down_child.cost
 
     def main_A_forward(self, size):
         counter = 0
@@ -29,15 +37,9 @@ class Main:
             if (start_node_actual.cost == 1) & (goal_node_actual.cost == 1) & (start_node != goal_node):
                 break
 
-        for i in range(0, 4):
-            if i == 0 and start_node_actual.right_child is not None:
-                start_node.right_child.cost = start_node_actual.right_child.cost
-            elif i == 1 and start_node_actual.left_child is not None:
-                start_node.left_child.cost = start_node_actual.left_child.cost
-            elif i == 2 and start_node_actual.top_child is not None:
-                start_node.top_child.cost = start_node_actual.top_child.cost
-            elif i == 3 and start_node_actual.down_child is not None:
-                start_node.down_child.cost = start_node_actual.down_child.cost
+        self.bolckage_status_of_children(start_node, start_node_actual)
+
+        print("start", start_node.x, start_node.y, goal_node.x, goal_node.y)
 
         solvedMaze = []
 
@@ -61,35 +63,20 @@ class Main:
                 return
 
             path = self.traverse_path(goal_node, start_node)
+            path.reverse()
 
-            parentIndex = path.pop()
-            parentNode = actual_maze[parentIndex[0]][parentIndex[1]]
-            solvedMaze.append(parentNode)
-
-            # compare with actual maze
-            for currentIndex in reversed(path):
-                currentNode = actual_maze[currentIndex[0]][currentIndex[1]]
-                isChild = False
-                for j in range(0, 4):
-                    child = parentNode.traverse_children(j)
-                    if child is not None:
-                        if child == currentNode:
-                            isChild = True
-                            break
-                if isChild:
-                    if currentNode.cost != 1:
-                        start_node = agent_maze[ parentNode.x][ parentNode.y]
-                        agent_maze[currentNode.x][currentNode.y].cost = float("inf")
-                        solvedMaze.pop()
-                        break
-                    else:
-                        parentNode = currentNode
-                        solvedMaze.append(parentNode)
+            for i in path:
+                if i.cost == actual_maze[i.x][i.y].cost:
+                    solvedMaze.append(i)
                 else:
-                    return
+                    start_node = solvedMaze.pop()
+                    start_node_actual = actual_maze[start_node.x][start_node.y]
+                    self.bolckage_status_of_children(start_node, start_node_actual)
+                    break
 
-            if agent_maze[parentNode.x][parentNode.y] == goal_node:
+            if solvedMaze[len(solvedMaze)-1] == goal_node:
                 print("I reached the goal: ")
                 for a in solvedMaze:
                     a.print()
                 return
+Main().main_A_forward(10)
