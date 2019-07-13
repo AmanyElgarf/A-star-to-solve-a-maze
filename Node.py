@@ -3,14 +3,9 @@ class Node:
         self.g = 0
         self.h = 0
         self.f = 0
-        self.value = None
-        # parent should ba an array of size 2
-        self.parent = []
+        self.parent = None
         self.search = 0
-        # not parent of the path is null
-        # start is ngative
         self.cost = 1
-#         to calculate manhattan distance
         self.x = x
         self.y = y
         self.left_child = None
@@ -29,8 +24,8 @@ class Node:
         self.g = new_g
         self.f = new_g + self.h
 
-    def update_parent(self, new_parent):
-        self.parent = new_parent
+    def update_f(self, new_f):
+        self.f = new_f
 
     def print(self):
         print("(", self.x, ", ", self.y, ")")
