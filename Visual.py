@@ -102,7 +102,7 @@ class Visual:
         y2 = (y2+y3)//2
         self.canvas.create_oval(x1,y1,x2,y2, fill='#EFF769', width=3)
 
-
+#
 # master = Tk()
 # mazeSize = 101
 # distance = 6

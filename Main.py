@@ -1,7 +1,6 @@
 import random
 from SolveMaze import SolveMaze
 from Maze import Maze
-from OpenList import OpenList
 
 
 class Main:
@@ -43,37 +42,19 @@ class Main:
 
     def main_A_forward(self):
         counter = 0
-
         start_node_actual, goal_node_actual = self.generate_random_start_and_goal_nodes()
         start_node = self.start_node
-
         self.bolckage_status_of_children(start_node, start_node_actual)
-
-        print("start", start_node.x, start_node.y, self.goal_node.x, self.goal_node.y)
-
-
         while start_node is not self.goal_node:
             counter += 1
             start_node.update_g(0)
             start_node.update_h(self.goal_node)
             start_node.update_search(counter)
-
             self.goal_node.update_g(float("inf"))
             self.goal_node.update_search(counter)
-
-            open_list = OpenList()
-            open_list.insert(start_node)
-            closed_list = set()
-
-            SolveMaze().forward_A_star(open_list, closed_list, self.goal_node, self.agent_maze)
-
-            if open_list.is_empty is True and self.goal_node not in closed_list:
-                print("I can't reach the target")
-                return
-
+            SolveMaze().forward_A_star(start_node, self.goal_node, self.agent_maze)
             path = self.traverse_path(self.goal_node, start_node)
             path.reverse()
-
             for i in path:
                 if i.cost == self.actual_maze[i.x][i.y].cost:
                     self.solvedMaze.append(i)
@@ -82,12 +63,11 @@ class Main:
                     start_node_actual = self.actual_maze[start_node.x][start_node.y]
                     self.bolckage_status_of_children(start_node, start_node_actual)
                     break
-
             if self.solvedMaze[len(self.solvedMaze)-1] == self.goal_node:
                 print("I reached the goal: ")
                 for a in self.solvedMaze:
                     a.print()
                 return
 
-# for i in range(10):
-Main(10).main_A_forward()
+for i in range(10):
+    Main(101).main_A_forward()

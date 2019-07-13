@@ -1,6 +1,12 @@
+from OpenList import OpenList
+
+
 class SolveMaze:
-    def forward_A_star(self, open_list, closed_list, goal_node, actual_maze):
+    def forward_A_star(self, start_node,  goal_node, actual_maze):
         counter = 0
+        open_list = OpenList()
+        open_list.insert(start_node)
+        closed_list = set()
         while open_list.is_empty() is False:
             counter += 1
             current = open_list.del_min()
@@ -26,3 +32,8 @@ class SolveMaze:
                     child.update_g(newG)
                     child.parent = actual_maze[current.x][current.y]
                     open_list.insert(child)
+
+        if open_list.is_empty is True and goal_node not in closed_list:
+            print("I can't reach the target")
+            return
+
