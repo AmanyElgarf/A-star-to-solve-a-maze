@@ -5,6 +5,11 @@ from OpenList import OpenList
 
 
 class Main:
+    def __init__(self, size):
+        self.agent_maze = Maze().generate_blank_maze(size)
+        self.actual_maze = Maze().generate_actual_maze(size)
+        self.size = size
+
     def traverse_path(self, goal_node, start_node):
         path = [goal_node]
         currentNode = goal_node
@@ -23,16 +28,14 @@ class Main:
         if start_node_actual.down_child is not None:
             start_node.down_child.cost = start_node_actual.down_child.cost
 
-    def main_A_forward(self, size):
+    def main_A_forward(self):
         counter = 0
-        agent_maze = Maze().generate_blank_maze(size)
-        actual_maze = Maze().generate_actual_maze(size)
 
         while True:
-            start_node = agent_maze[random.randint(0, size-1)][random.randint(0, size-1)]
-            goal_node = agent_maze[random.randint(0, size-1)][random.randint(0, size-1)]
-            start_node_actual = actual_maze[start_node.x][start_node.y]
-            goal_node_actual = actual_maze[goal_node.x][goal_node.y]
+            start_node = self.agent_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
+            goal_node = self.agent_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
+            start_node_actual = self.actual_maze[start_node.x][start_node.y]
+            goal_node_actual = self.actual_maze[goal_node.x][goal_node.y]
             if (start_node_actual.cost == 1) & (goal_node_actual.cost == 1) & (start_node != goal_node):
                 break
 
@@ -55,7 +58,7 @@ class Main:
             open_list.insert(start_node)
             closed_list = set()
 
-            SolveMaze().forward_A_star(open_list, closed_list, goal_node, agent_maze)
+            SolveMaze().forward_A_star(open_list, closed_list, goal_node, self.agent_maze)
 
             if open_list.is_empty is True and goal_node not in closed_list:
                 print("I can't reach the target")
@@ -65,11 +68,11 @@ class Main:
             path.reverse()
 
             for i in path:
-                if i.cost == actual_maze[i.x][i.y].cost:
+                if i.cost == self.actual_maze[i.x][i.y].cost:
                     solvedMaze.append(i)
                 else:
                     start_node = solvedMaze.pop()
-                    start_node_actual = actual_maze[start_node.x][start_node.y]
+                    start_node_actual = self.actual_maze[start_node.x][start_node.y]
                     self.bolckage_status_of_children(start_node, start_node_actual)
                     break
 
@@ -80,4 +83,4 @@ class Main:
                 return
 
 for i in range(10):
-    Main().main_A_forward(101)
+    Main(101).main_A_forward()
