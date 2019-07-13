@@ -14,15 +14,14 @@ class Main:
         return path
 
     def bolckage_status_of_children(self, start_node, start_node_actual):
-        for i in range(0, 4):
-            if i == 0 and start_node_actual.right_child is not None:
-                start_node.right_child.cost = start_node_actual.right_child.cost
-            elif i == 1 and start_node_actual.left_child is not None:
-                start_node.left_child.cost = start_node_actual.left_child.cost
-            elif i == 2 and start_node_actual.top_child is not None:
-                start_node.top_child.cost = start_node_actual.top_child.cost
-            elif i == 3 and start_node_actual.down_child is not None:
-                start_node.down_child.cost = start_node_actual.down_child.cost
+        if start_node_actual.right_child is not None:
+            start_node.right_child.cost = start_node_actual.right_child.cost
+        if start_node_actual.left_child is not None:
+            start_node.left_child.cost = start_node_actual.left_child.cost
+        if start_node_actual.top_child is not None:
+            start_node.top_child.cost = start_node_actual.top_child.cost
+        if start_node_actual.down_child is not None:
+            start_node.down_child.cost = start_node_actual.down_child.cost
 
     def main_A_forward(self, size):
         counter = 0
@@ -79,4 +78,6 @@ class Main:
                 for a in solvedMaze:
                     a.print()
                 return
-Main().main_A_forward(10)
+
+for i in range(10):
+    Main().main_A_forward(101)
