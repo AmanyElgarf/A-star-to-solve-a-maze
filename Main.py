@@ -15,7 +15,7 @@ class Main:
     def generate_random_start_and_goal_nodes(self):
         while True:
             start_node_actual = self.actual_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
-            goal_node_actual= self.actual_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
+            goal_node_actual = self.actual_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
             if (start_node_actual.cost == 1) & (goal_node_actual.cost == 1) & (start_node_actual != goal_node_actual):
                 break
         self.start_node = self.agent_maze[start_node_actual.x][start_node_actual.y]
@@ -40,9 +40,8 @@ class Main:
         if start_node_actual.down_child is not None:
             start_node.down_child.cost = start_node_actual.down_child.cost
 
-    def main_A_forward(self):
+    def repeated_forward(self, start_node_actual, goal_node_actual):
         counter = 0
-        start_node_actual, goal_node_actual = self.generate_random_start_and_goal_nodes()
         start_node = self.start_node
         self.bolckage_status_of_children(start_node, start_node_actual)
         while start_node is not self.goal_node:
@@ -52,7 +51,9 @@ class Main:
             start_node.update_search(counter)
             self.goal_node.update_g(float("inf"))
             self.goal_node.update_search(counter)
-            SolveMaze().forward_A_star(start_node, self.goal_node, self.agent_maze)
+            if SolveMaze().forward_A_star(start_node, self.goal_node, self.agent_maze) == "I can't reach the target":
+                print("I can't reach the target")
+                return
             path = self.traverse_path(self.goal_node, start_node)
             path.reverse()
             for i in path:
@@ -69,5 +70,10 @@ class Main:
                     a.print()
                 return
 
-for i in range(10):
-    Main(101).main_A_forward()
+    def main(self):
+        start_node_actual, goal_node_actual = self.generate_random_start_and_goal_nodes()
+        self.repeated_forward(start_node_actual, goal_node_actual)
+
+
+for k in range(10):
+    Main(101).main()

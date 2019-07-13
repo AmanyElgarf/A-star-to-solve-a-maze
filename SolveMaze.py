@@ -32,8 +32,7 @@ class SolveMaze:
                     child.update_g(newG)
                     child.parent = actual_maze[current.x][current.y]
                     open_list.insert(child)
+        if open_list.is_empty() is True and goal_node not in closed_list:
+            return "I can't reach the target"
 
-        if open_list.is_empty is True and goal_node not in closed_list:
-            print("I can't reach the target")
-            return
 
