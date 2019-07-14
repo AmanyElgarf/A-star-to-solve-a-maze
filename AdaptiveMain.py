@@ -45,41 +45,29 @@ class Main:
         if start_node_actual.down_child is not None:
             start_node.down_child.cost = start_node_actual.down_child.cost
             self.w.blocked(start_node.down_child)
+        self.w.master.update()
 
     def initializeVisuals(self, distance):
-        master = Tk()
-        canvas_width = self.size * distance + distance * 2
-        canvas_height = self.size * distance + distance * 2
-        canvas = Canvas(master, width=canvas_width, height=canvas_height)
-        canvas.pack()
-        self.w = Visual(canvas, master, distance)
+        self.w = Visual(distance, self.start_node, self.goal_node, self.size)
         self.w.showMaze(self.actual_maze)
         self.w.showMaze(self.agent_maze)
-        self.w.start(self.start_node)
-        self.w.goal(self.goal_node)
+
 
     def repeated_adaptive(self, start_node_actual):
         start_node = self.start_node
-
-        self.initializeVisuals(10)
-
+        self.initializeVisuals(7)
         self.blockage_status_of_children(start_node, start_node_actual)
+        self.goal_node.update_g(float("inf"))
 
-        lastClosedList = None
-        goalCost = float("inf")
+        lastClosedList = set()
         while start_node is not self.goal_node:
-            start_node.update_g(0)
-            start_node.update_h(self.goal_node)
-            self.goal_node.update_g(float("inf"))
-            closedList = set()
-            if SolveMaze().adaptive_A_star(start_node, self.goal_node, closedList, lastClosedList, goalCost, self.w) == 0:
+            if SolveMaze().adaptive_A_star(start_node, self.goal_node, lastClosedList, self.w) == 0:
                 print("I can't reach the target")
                 self.w.noPath()
                 break
             path = self.traverse_path(self.goal_node, start_node)
             path.reverse()
             self.w.pathLine(path)
-
             for i in path:
                 if i.cost == self.actual_maze[i.x][i.y].cost:
                     if i in self.solvedMaze:
@@ -92,8 +80,6 @@ class Main:
                     start_node_actual = self.actual_maze[start_node.x][start_node.y]
                     self.blockage_status_of_children(start_node, start_node_actual)
                     break
-            lastClosedList = closedList
-            goalCost = self.goal_node.g
             if self.solvedMaze[len(self.solvedMaze)-1] == self.goal_node:
                 print("I reached the goal")
                 self.w.finalPath(self.actual_maze, self.solvedMaze)

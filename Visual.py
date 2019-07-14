@@ -1,28 +1,32 @@
 from colour import Color
+from tkinter import *
 
 class Visual:
-    def __init__(self, c, m, distance):
-        self.master = m
-        self.canvas = c
+    def __init__(self, distance, start, goal, size):
+        self.master = Tk()
         self.distance = distance
+        self.size = size
+        self.canSize = self.distance*(self.size + 2)
+        self.canvas = Canvas(self.master, width=self.canSize, height=self.canSize)
+        self.canvas.pack()
         self.colors = list(Color("#00FF00").range_to(Color("#FF0000"), 100))
-        self.startNode = None
-        self.goalNode = None
-        self.mazeSize = 0
+        self.startNode = start
+        self.goalNode = goal
 
     def showMaze(self, maze):
-        self.mazeSize = len(maze)
-        for x in range(0, self.mazeSize):
-            for y in range(0, self.mazeSize):
+        for x in range(0, self.size):
+            for y in range(0, self.size):
                 cell = maze[x][y]
                 y1 = (x * self.distance )+self.distance
                 x1 = (y * self.distance )+self.distance
                 y2 = y1 + self.distance
                 x2 = x1 + self.distance
                 if cell.cost != 1:
-                    self.canvas.create_rectangle(x1, y1, x2, y2, fill="#778899", outline="#778899")
+                    self.canvas.create_rectangle(x1, y1, x2, y2, fill="#E8E8E8", outline="#E8E8E8")
                 else:
                     self.canvas.create_rectangle(x1, y1, x2, y2, fill="#FFFFFF", outline="#FFFFFF")
+        self.start()
+        self.goal()
         self.master.update()
 
     def blocked(self, cell):
@@ -35,8 +39,7 @@ class Visual:
         if cell.cost != 1:
             self.canvas.create_rectangle(x1, y1, x2, y2, fill="#000000", outline="#000000")
 
-    def start(self, sN):
-        self.startNode = sN
+    def start(self):
         x = self.startNode.y * self.distance
         y = self.startNode.x * self.distance
         x1 = x+self.distance
@@ -47,10 +50,9 @@ class Visual:
         self.canvas.create_oval(x1+2,y1+2,x2-2,y2-2, fill='#FF0000', outline='#FF0000')
         self.master.update()
 
-    def goal(self, cell):
-        self.goalNode = cell
-        x = cell.y * self.distance
-        y = cell.x * self.distance
+    def goal(self):
+        x = self.goalNode.y * self.distance
+        y = self.goalNode.x * self.distance
         x1 = x+self.distance
         y1 = y+self.distance
         x2 = x1+self.distance
@@ -117,12 +119,12 @@ class Visual:
         return steps
 
     def finalPath(self, maze, steps):
+        # m = Tk()
+        # canvas = Canvas(m, width=self.canSize, height=self.canSize)
+        # canvas.pack()
         self.showMaze(maze)
-        self.start(self.startNode)
-        self.goal(self.goalNode)
         self.pathLine(steps)
 
-
     def noPath(self):
-        self.canvas.create_text( self.mazeSize*self.distance//2, self.mazeSize*self.distance//2, text="Path not found")
+        self.canvas.create_text( self.size*self.distance//2, self.size*self.distance//2, text="Path not found")
         self.master.update()

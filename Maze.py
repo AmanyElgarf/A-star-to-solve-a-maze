@@ -1,7 +1,6 @@
 from Node import Node
 import random
 
-
 class Maze:
     def __init__(self):
         pass
@@ -58,3 +57,6 @@ class Maze:
             maze = Maze().generate_actual_maze(size)
             libOfMazes.append(maze)
         return libOfMazes
+
+
+

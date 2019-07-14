@@ -45,34 +45,22 @@ class Main:
         if start_node_actual.down_child is not None:
             start_node.down_child.cost = start_node_actual.down_child.cost
             self.w.blocked(start_node.down_child)
+        self.w.master.update()
 
     def initializeVisuals(self, distance):
-        master = Tk()
-        canvas_width = self.size * distance + distance * 2
-        canvas_height = self.size * distance + distance * 2
-        canvas = Canvas(master, width=canvas_width, height=canvas_height)
-        canvas.pack()
-        self.w = Visual(canvas, master, distance)
+        self.w = Visual(distance, self.start_node, self.goal_node, self.size)
         self.w.showMaze(self.actual_maze)
-        self.w.start(self.start_node)
-        self.w.goal(self.goal_node)
         self.w.showMaze(self.agent_maze)
-        self.w.start(self.start_node)
-        self.w.goal(self.goal_node)
 
     def repeated_forward(self, start_node_actual):
         start_node = self.start_node
 
-        self.initializeVisuals(6)
+        self.initializeVisuals(7)
 
         self.blockage_status_of_children(start_node, start_node_actual)
 
-
         while start_node is not self.goal_node:
-            start_node.update_g(0)
-            start_node.update_h(self.goal_node)
-            self.goal_node.update_g(float("inf"))
-            if SolveMaze().forward_A_star(start_node, self.goal_node, self.agent_maze, self.w) == "I can't reach the target":
+            if SolveMaze().forward_A_star(start_node, self.goal_node, self.agent_maze, self.w) == 0:
                 print("I can't reach the target")
                 self.w.noPath()
                 break
@@ -103,4 +91,4 @@ class Main:
         self.repeated_forward(start_node_actual)
 
 
-# Main(101).main()
+Main(101).main()

@@ -54,10 +54,10 @@ class OpenList:
                 if self.heap[self.left_child_pos(parent_pos)].f == self.heap[self.right_child_pos(parent_pos)].f:
                     if self.heap[self.left_child_pos(parent_pos)].g < self.heap[self.right_child_pos(parent_pos)].g:
                         k = True
-                    # elif self.heap[self.left_child_pos(parent_pos)].g == self.heap[self.right_child_pos(parent_pos)].g:
-                    #     intt = random.randint(0, 1)
-                    #     if intt == 0: k = True
-                    # else, k remains false, and you swap the left child
+                    elif self.heap[self.left_child_pos(parent_pos)].g == self.heap[self.right_child_pos(parent_pos)].g:
+                        intt = random.randint(0, 1)
+                        if intt == 0: k = True
+                        #else, k remains false, and you swap the left child
                     # else leftchild.g is greater, so k remains false, and you swap the left child
 
             if k is True:
@@ -77,16 +77,12 @@ class OpenList:
         if element in self.heap:
             for i in self.heap:
                 if i.x == element.x and i.y == element.y:
+                    self.sink(self.heap.index(i))
                     self.swim(self.heap.index(i))
-
         else:
             self.heap.append(element)
             self.current_size += 1
             self.swim(self.current_size)
-
-        # print("Insertion:")
-        # self.print()
-        #print()
 
     def contains(self, element):
         if element in self.heap:
@@ -102,10 +98,6 @@ class OpenList:
         self.heap.pop()
         self.current_size -= 1
         self.sink(1)
-        # print("Deletion:")
-        # print("min: ", min.f, "(", min.x, ", ", min.y, ")")
-        # print("Changed heap:")
-        # self.print()
         return min
 
     def print(self):
