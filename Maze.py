@@ -1,9 +1,28 @@
 from Node import Node
 import random
+import pickle
+from Visual import Visual
+from tkinter import *
 
 class Maze:
     def __init__(self):
         pass
+
+    def readfiftymazes(self):
+        f = open("SavedMazes", "rb")
+        mazeLibrary = pickle.load(f)
+
+        allMazes = []
+        i = 0
+        for m in mazeLibrary:
+            i+=1
+            maze = self.generate_blank_maze(101)
+            for x in range(0,101):
+                for y in range(0,101):
+                    if m[x][y] == 1:
+                        maze[x][y].cost = float("inf")
+            allMazes.append(maze)
+        return allMazes
 
     def generate_actual_maze(self, size):
         maze = Maze().generate_blank_maze(size)
@@ -59,4 +78,12 @@ class Maze:
         return libOfMazes
 
 
-
+# f = "SavedMazes"
+mazes = Maze().readfiftymazes()
+master = Tk()
+print(len(mazes))
+# for m in mazes:
+#     start = Node(1,1)
+#     end = Node(87,87)
+#     w = Visual(7, start, end, 101)
+#     w.showMaze(m)
