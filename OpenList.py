@@ -49,6 +49,17 @@ class OpenList:
         while ((self.is_leaf(parent_pos) is False) and (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.left_child_pos(parent_pos)].f or
                                                          (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f)) ):
             k = self.heap[self.left_child_pos(parent_pos)].f > self.heap[self.right_child_pos(parent_pos)].f
+
+            if k is False:
+                if self.heap[self.left_child_pos(parent_pos)].f == self.heap[self.right_child_pos(parent_pos)].f:
+                    if self.heap[self.left_child_pos(parent_pos)].g < self.heap[self.right_child_pos(parent_pos)].g:
+                        k = True
+                    # elif self.heap[self.left_child_pos(parent_pos)].g == self.heap[self.right_child_pos(parent_pos)].g:
+                    #     intt = random.randint(0, 1)
+                    #     if intt == 0: k = True
+                    # else, k remains false, and you swap the left child
+                    # else leftchild.g is greater, so k remains false, and you swap the left child
+
             if k is True:
                 if self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f:
                     self.swap(parent_pos, self.right_child_pos(parent_pos))

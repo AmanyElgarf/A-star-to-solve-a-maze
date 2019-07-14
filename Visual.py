@@ -1,37 +1,29 @@
-from tkinter import *
-from Node import Node
-from Maze import Maze
 from colour import Color
 
 class Visual:
-    def __init__(self, c, m):
+    def __init__(self, c, m, distance):
         self.master = m
         self.canvas = c
         self.distance = distance
         self.colors = list(Color("#00FF00").range_to(Color("#FF0000"), 100))
-
-
-    def showBlankMaze(self):
-        for x in range(self.distance, canvas_width, self.distance):
-            self.canvas.create_line(x, 0, x, canvas_height, fill="#476042")
-        # horizontal lines at an interval of "line_distance" pixel
-        for y in range(self.distance, canvas_height, self.distance):
-            self.canvas.create_line(0, y, canvas_width, y, fill="#476042")
-        # self.canvas.update()
+        self.startNode = None
+        self.goalNode = None
+        self.mazeSize = 0
 
     def showMaze(self, maze):
-        size = len(maze)
-        for x in range(0, size):
-            for y in range(0, size):
+        self.mazeSize = len(maze)
+        for x in range(0, self.mazeSize):
+            for y in range(0, self.mazeSize):
                 cell = maze[x][y]
                 y1 = (x * self.distance )+self.distance
                 x1 = (y * self.distance )+self.distance
                 y2 = y1 + self.distance
                 x2 = x1 + self.distance
                 if cell.cost != 1:
-                    self.canvas.create_rectangle(x1, y1, x2, y2, fill="#E8E8E8", outline="#E8E8E8")
+                    self.canvas.create_rectangle(x1, y1, x2, y2, fill="#778899", outline="#778899")
                 else:
                     self.canvas.create_rectangle(x1, y1, x2, y2, fill="#FFFFFF", outline="#FFFFFF")
+        self.master.update()
 
     def blocked(self, cell):
         x = cell.y * self.distance
@@ -40,39 +32,52 @@ class Visual:
         y1 = y+self.distance
         x2 = x1+self.distance
         y2 = y1+self.distance
-        self.canvas.create_rectangle(x1,y1,x2,y2, fill='#E8E8E8', outline='#E8E8E8')
+        if cell.cost != 1:
+            self.canvas.create_rectangle(x1, y1, x2, y2, fill="#000000", outline="#000000")
 
-    def start(self, cell):
-        x = cell.y * self.distance
-        y = cell.x * self.distance
+    def start(self, sN):
+        self.startNode = sN
+        x = self.startNode.y * self.distance
+        y = self.startNode.x * self.distance
         x1 = x+self.distance
         y1 = y+self.distance
         x2 = x1+self.distance
         y2 = y1+self.distance
-        self.canvas.create_oval(x1,y1,x2,y2, fill='#FF0000', outline='#FF0000')
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill="#000000", outline="#000000")
+        self.canvas.create_oval(x1+2,y1+2,x2-2,y2-2, fill='#FF0000', outline='#FF0000')
+        self.master.update()
 
     def goal(self, cell):
+        self.goalNode = cell
         x = cell.y * self.distance
         y = cell.x * self.distance
         x1 = x+self.distance
         y1 = y+self.distance
         x2 = x1+self.distance
         y2 = y1+self.distance
-        self.canvas.create_oval(x1,y1,x2,y2, fill='#00FF00', outline='#00FF00')
-
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill="#000000", outline="#000000")
+        self.canvas.create_oval(x1+2,y1+2,x2-2,y2-2, fill='#00FF00', outline='#00FF00')
+        self.master.update()
 
     def inOpen(self, cell):
+        if (cell == self.startNode) or (cell == self.goalNode): return
         x = cell.y * self.distance
         y = cell.x * self.distance
         x1 = x + self.distance
         y1 = y + self.distance
         x2 = x1 + self.distance
         y2 = y1 + self.distance
-        self.canvas.create_oval(x1, y1, x2, y2, fill='white', outline='blue')
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill="#FFFFFF", outline="#FFFFFF")
+        self.canvas.create_oval(x1+2, y1+2, x2-2, y2-2, fill='white', outline='blue')
+        #self.master.update()
 
-    def inClosed(self, cell, start):
-        percent = cell.h/start.h
+    def inClosed(self, cell):
+        if (cell == self.startNode) or (cell == self.goalNode): return
+        percent = cell.h/self.startNode.h
         index = int(percent * 99)
+        while (index > 99):
+            percent = cell.g / self.goalNode.g
+            index = 99-int(percent * 99)
         current = self.colors[index]
         x = cell.y * self.distance
         y = cell.x * self.distance
@@ -80,61 +85,44 @@ class Visual:
         y1 = y + self.distance
         x2 = x1 + self.distance
         y2 = y1 + self.distance
-        self.canvas.create_oval(x1, y1, x2, y2, fill=current, outline=current)
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill="#FFFFFF", outline="#FFFFFF")
+        self.canvas.create_oval(x1+2, y1+2, x2-2, y2-2, fill=current, outline=current)
+        #self.master.update()
 
-    def pathLine(self, parent, current):
-        x = parent.y * self.distance
-        y = parent.x * self.distance
-        x1 = x + self.distance
-        y1 = y + self.distance
-        x2 = x1 + self.distance
-        y2 = y1 + self.distance
-        x1 = (x1+x2)//2
-        y1 = (y1+y2)//2
+    def pathLine(self, steps):
+        parent1 = steps.pop(0)
+        parent = parent1
+        for current in steps:
+            x = parent.y * self.distance
+            y = parent.x * self.distance
+            x1 = x + self.distance
+            y1 = y + self.distance
+            x2 = x1 + self.distance
+            y2 = y1 + self.distance
+            x1 = (x1 + x2) // 2
+            y1 = (y1 + y2) // 2
 
-        x = current.y * self.distance
-        y = current.x * self.distance
-        x2 = x + self.distance
-        y2 = y + self.distance
-        x3 = x2 + self.distance
-        y3 = y2 + self.distance
-        x2 = (x2+x3)//2
-        y2 = (y2+y3)//2
-        self.canvas.create_oval(x1,y1,x2,y2, fill='#EFF769', width=3)
+            x = current.y * self.distance
+            y = current.x * self.distance
+            x2 = x + self.distance
+            y2 = y + self.distance
+            x3 = x2 + self.distance
+            y3 = y2 + self.distance
+            x2 = (x2 + x3) // 2
+            y2 = (y2 + y3) // 2
+            self.canvas.create_line(x1, y1, x2, y2, fill='purple', width=3)
+            parent = current
+            self.master.update()
+        steps.insert(0, parent1)
+        return steps
 
-#
-# master = Tk()
-# mazeSize = 101
-# distance = 6
-# maze = Maze().generate_actual_maze(mazeSize)
-# for i in range(0, mazeSize):
-#     for j in range(0, mazeSize):
-#         if maze[i][j].cost == 1:
-#             print("o ", end=""),
-#         else:
-#             print("x ", end=""),
-#     print("\n")
-# canvas_width = mazeSize*distance+distance*2
-#     # mazeSize*5+10
-# canvas_height = mazeSize*distance+distance*2
-#     # mazeSize*5+10
-# canV = Canvas(master,
-#            width=canvas_width,
-#            height=canvas_height)
-# w = Visual(canV, master)
-# canV.pack()
-# # w.showBlankMaze()
-# w.showMaze(maze)
-# start = Node(2,2)
-# cell1 = Node(34,43)
-# end = Node(99, 99)
-#
-# start.update_h(end)
-# cell1.update_h(end)
-# end.update_h(end)
-#
-# w.start(start)
-# w.goal(end)
-# w.inClosed(start, start)
-# w.inClosed(cell1, start)
-# mainloop()
+    def finalPath(self, maze, steps):
+        self.showMaze(maze)
+        self.start(self.startNode)
+        self.goal(self.goalNode)
+        self.pathLine(steps)
+
+
+    def noPath(self):
+        self.canvas.create_text( self.mazeSize*self.distance//2, self.mazeSize*self.distance//2, text="Path not found")
+        self.master.update()

@@ -1,27 +1,11 @@
 import random
 from SolveMaze import SolveMaze
 from Maze import Maze
-
+from OpenList import OpenList
+from tkinter import *
+from Visual import Visual
 
 class Main:
-    def __init__(self, size):
-        self.agent_maze = Maze().generate_blank_maze(size)
-        self.actual_maze = Maze().generate_actual_maze(size)
-        self.size = size
-        self.solvedMaze = []
-        self.start_node = None
-        self.goal_node = None
-
-    def generate_random_start_and_goal_nodes(self):
-        while True:
-            start_node_actual = self.actual_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
-            goal_node_actual = self.actual_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
-            if (start_node_actual.cost == 1) & (goal_node_actual.cost == 1) & (start_node_actual != goal_node_actual):
-                break
-        self.start_node = self.agent_maze[start_node_actual.x][start_node_actual.y]
-        self.goal_node = self.agent_maze[goal_node_actual.x][goal_node_actual.y]
-        return start_node_actual, goal_node_actual
-
     def traverse_path(self, goal_node, start_node):
         path = [goal_node]
         currentNode = goal_node
@@ -30,57 +14,110 @@ class Main:
             path.append(currentNode)
         return path
 
-    def bolckage_status_of_children(self, start_node, start_node_actual):
-        if start_node_actual.right_child is not None:
-            start_node.right_child.cost = start_node_actual.right_child.cost
-        if start_node_actual.left_child is not None:
-            start_node.left_child.cost = start_node_actual.left_child.cost
-        if start_node_actual.top_child is not None:
-            start_node.top_child.cost = start_node_actual.top_child.cost
-        if start_node_actual.down_child is not None:
-            start_node.down_child.cost = start_node_actual.down_child.cost
+    def blockage_status_of_children(self, start_node, start_node_actual, w):
+        for i in range(0, 4):
+            if i == 0 and start_node_actual.right_child is not None:
+                start_node.right_child.cost = start_node_actual.right_child.cost
+                w.blocked(start_node.right_child)
+            elif i == 1 and start_node_actual.left_child is not None:
+                start_node.left_child.cost = start_node_actual.left_child.cost
+                w.blocked(start_node.left_child)
+            elif i == 2 and start_node_actual.top_child is not None:
+                start_node.top_child.cost = start_node_actual.top_child.cost
+                w.blocked(start_node.top_child)
+            elif i == 3 and start_node_actual.down_child is not None:
+                start_node.down_child.cost = start_node_actual.down_child.cost
+                w.blocked(start_node.down_child)
+        w.master.update()
 
-    def repeated_forward(self, start_node_actual, goal_node_actual):
+    def main_A_forward(self, size):
         counter = 0
-        start_node = self.start_node
-        self.bolckage_status_of_children(start_node, start_node_actual)
-        while start_node is not self.goal_node:
+        agent_maze = Maze().generate_blank_maze(size)
+        actual_maze = Maze().generate_actual_maze(size)
+
+
+
+
+
+        while True:
+            start_node = agent_maze[random.randint(0, size-1)][random.randint(0, size-1)]
+            goal_node = agent_maze[random.randint(0, size-1)][random.randint(0, size-1)]
+            start_node_actual = actual_maze[start_node.x][start_node.y]
+            goal_node_actual = actual_maze[goal_node.x][goal_node.y]
+            if (start_node_actual.cost == 1) & (goal_node_actual.cost == 1) & (start_node != goal_node):
+                break
+
+        w.showMaze(agent_maze)
+        w.start(start_node)
+        self.blockage_status_of_children(start_node, start_node_actual, w)
+
+        print("start", start_node.x, start_node.y, goal_node.x, goal_node.y)
+        solvedMaze = []
+        w.goal(goal_node)
+        w.start(start_node)
+        while start_node is not goal_node:
             counter += 1
             start_node.update_g(0)
-            start_node.update_h(self.goal_node)
+            start_node.update_h(goal_node)
             start_node.update_search(counter)
-            self.goal_node.update_g(float("inf"))
-            self.goal_node.update_search(counter)
-            if SolveMaze().forward_A_star(start_node, self.goal_node, self.agent_maze) == "I can't reach the target":
+
+            goal_node.update_g(float("inf"))
+            goal_node.update_search(counter)
+
+            open_list = OpenList()
+            open_list.insert(start_node)
+            closed_list = set()
+
+            SolveMaze().forward_A_star(open_list, closed_list, goal_node, agent_maze, w)
+
+            if open_list.is_empty is True and goal_node not in closed_list:
                 print("I can't reach the target")
-                return
-            path = self.traverse_path(self.goal_node, start_node)
+                break
+
+            path = self.traverse_path(goal_node, start_node)
+
+            # parent = path.pop()
+            # while path != [] and solvedMaze != []:
+            #     i = path.pop()
+            #     if i.cost == actual_maze[i.x][i.y].cost:
+            #         if i in solvedMaze:
+            #             for i in range(solvedMaze)
+            #             solvedMaze.pop()
+            #             parent = i
+            #         else:
+            #             solvedMaze.append(parent)
+            #             path.append(i)
+            #             break
             path.reverse()
+            path = w.pathLine(path)
+            w.master.update()
             for i in path:
-                if i.cost == self.actual_maze[i.x][i.y].cost:
-                    if i in self.solvedMaze:
-                        if i is self.start_node:
-                            continue
-                        self.solvedMaze.pop(self.solvedMaze.index(i))
+                if i.cost == actual_maze[i.x][i.y].cost:
+                    if i in solvedMaze:
+                        del solvedMaze[solvedMaze.index(i)+1: len(solvedMaze)]
                         continue
-                    self.solvedMaze.append(i)
+                    solvedMaze.append(i)
                 else:
-                    start_node = self.solvedMaze.pop()
-                    start_node_actual = self.actual_maze[start_node.x][start_node.y]
-                    self.bolckage_status_of_children(start_node, start_node_actual)
+                    start_node = solvedMaze.pop()
+                    start_node_actual = actual_maze[start_node.x][start_node.y]
+                    self.blockage_status_of_children(start_node, start_node_actual, w)
                     break
-            if self.solvedMaze[len(self.solvedMaze)-1] == self.goal_node:
 
+
+
+
+            if solvedMaze[len(solvedMaze)-1] == goal_node:
                 print("I reached the goal: ")
-                for a in self.solvedMaze:
+                w.showMaze(actual_maze)
+                w.start(w.startNode)
+                w.goal(w.goalNode)
+                w.pathLine(solvedMaze)
+                for a in solvedMaze:
                     a.print()
-                return
+                break
 
-    def main(self):
-        start_node_actual, goal_node_actual = self.generate_random_start_and_goal_nodes()
-        print(start_node_actual.x, start_node_actual.y, goal_node_actual.x, goal_node_actual.y)
-        self.repeated_forward(start_node_actual, goal_node_actual)
+        mainloop()
+        return
 
 
-for k in range(10):
-    Main(101).main()
+Main().main_A_forward(25)

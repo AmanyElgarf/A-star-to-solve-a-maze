@@ -4,7 +4,6 @@ class Node:
         self.h = 0
         self.f = 0
         self.parent = None
-        self.search = 0
         self.cost = 1
         self.x = x
         self.y = y
@@ -17,8 +16,9 @@ class Node:
         self.h = abs(self.x - goal.x) + abs(self.y - goal.y)
         self.f = self.h + self.g
 
-    def update_search(self, search):
-        self.search = search
+    def update_hnew(self, goalC):
+        self.h = goalC - self.g
+        self.f = self.h + self.g
 
     def update_g(self, new_g):
         self.g = new_g

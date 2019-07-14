@@ -8,54 +8,25 @@ class Maze:
 
     def generate_actual_maze(self, size):
         maze = Maze().generate_blank_maze(size)
-
         start = maze[random.randint(0, size - 1)][random.randint(0, size - 1)]
-
         open = []
         open.append(start)
         closed = set()
-
-        # while there are unexpanded cells, keep visiting cells
         while (open != []):
             current = open.pop()
-            # if cell has been expanded, don't add its neighbors to open list (aka continue)
             if current in closed:
                 continue
-            # otherwise add to closed list, and expand
             closed.add(current)
-            # randomly access each child,
-            # but ensure that each child is accessed
-            # and that the same child is not accessed more
-            # than once
-
-
             index = [0, 1, 2, 3]
             random.shuffle(index)
             for j in range(0, 4):
                 i = index[j]
                 child = current.traverse_children(i)
                 if (child is None): continue
-                # add child to open list (even if blocked to make sure all neighbors visited)
                 if (child not in closed) & (child not in open):
                     isBlocked = random.randint(1, 101)
                     if isBlocked > 70: child.cost = float("inf")
                     open.append(child)
-
-
-
-        if len(closed) == size * size:
-            print("True")
-        else:
-            print("False")
-
-        for i in range(0, size):
-            for j in range(0, size):
-                if maze[i][j].cost == 1:
-                    print("o ", end=""),
-                else:
-                    print("x ", end=""),
-            print("\n")
-
         return maze
 
 
