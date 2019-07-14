@@ -1,6 +1,6 @@
 # Solving-a-maze-using-A-Algorithm
 
-A* is a pathfinding alogirthm that uses a heuristic to make more informed decision about which steps to take. 
+A* is a pathfinding algorithm that uses a heuristic to make an informed decision about which steps to take to find a path. 
 
 The agent uses A* search to find a path on a maze with obstacles it is unaware of. With repeated searches, the agent learns more about the maze, and generates new paths to reach the target.
 
