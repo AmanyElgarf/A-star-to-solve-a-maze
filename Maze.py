@@ -1,8 +1,8 @@
 from Node import Node
 import random
 import pickle
-from Visual import Visual
 from tkinter import *
+
 
 class Maze:
     def __init__(self):
@@ -11,18 +11,27 @@ class Maze:
     def readfiftymazes(self):
         f = open("SavedMazes", "rb")
         mazeLibrary = pickle.load(f)
+        allActualMazes = []
+        blankMazes1 = []
+        blankMazes2 = []
+        blankMazes3 = []
 
-        allMazes = []
         i = 0
         for m in mazeLibrary:
             i+=1
             maze = self.generate_blank_maze(101)
-            for x in range(0,101):
-                for y in range(0,101):
+            blankMazes1.append(maze)
+            blankMazes2.append(maze)
+            blankMazes3.append(maze)
+
+            for x in range(0, 101):
+                for y in range(0, 101):
                     if m[x][y] == 1:
                         maze[x][y].cost = float("inf")
-            allMazes.append(maze)
-        return allMazes
+            allActualMazes.append(maze)
+
+            blankMazes = [blankMazes1, blankMazes2, blankMazes3]
+        return allActualMazes, blankMazes
 
     def generate_actual_maze(self, size):
         maze = Maze().generate_blank_maze(size)
@@ -47,7 +56,6 @@ class Maze:
                     open.append(child)
         return maze
 
-
     def generate_blank_maze(self, size):
         maze = []
         for i in range(0, size):
@@ -69,7 +77,6 @@ class Maze:
                     maze[p][j].down_child = maze[p + 1][j]
         return maze
 
-
     def generate_fifty_gridworlds(self, size):
         libOfMazes = []
         for x in range(0, 50):
@@ -78,12 +85,6 @@ class Maze:
         return libOfMazes
 
 
-# f = "SavedMazes"
 mazes = Maze().readfiftymazes()
 master = Tk()
-print(len(mazes))
-# for m in mazes:
-#     start = Node(1,1)
-#     end = Node(87,87)
-#     w = Visual(7, start, end, 101)
-#     w.showMaze(m)
+
