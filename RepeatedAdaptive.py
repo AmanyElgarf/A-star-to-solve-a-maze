@@ -1,44 +1,32 @@
-import random
 from SolveMaze import SolveMaze
 from Maze import Maze
 from Visual import Visual
 from tkinter import *
 from Metrics import Metrics
 
+
 class RepeatedAdaptive:
-    def __init__(self, size):
-        self.agent_maze = Maze().generate_blank_maze(size)
-        self.actual_maze = Maze().generate_actual_maze(size)
+    def __init__(self, size, actual_maze, agent_maze, start_node, goal_node, start_node_actual, goal_node_actual):
+        self.agent_maze = agent_maze
+        self.actual_maze = actual_maze
         self.size = size
         self.solvedMaze = []
-        self.start_node = None
-        self.goal_node = None
+        self.start_node = start_node
+        self.goal_node = goal_node
+        self.start_node_actual = start_node_actual
+        self.goal_node_actual = goal_node_actual
         self.w = None
-
-    def generate_random_start_and_goal_nodes(self):
-        while True:
-            start_node_actual = self.actual_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
-            goal_node_actual = self.actual_maze[random.randint(0, self.size-1)][random.randint(0, self.size-1)]
-            if (start_node_actual.cost == 1) & (goal_node_actual.cost == 1) & (start_node_actual != goal_node_actual):
-                break
-        self.start_node = self.agent_maze[start_node_actual.x][start_node_actual.y]
-        self.goal_node = self.agent_maze[goal_node_actual.x][goal_node_actual.y]
-        return start_node_actual, goal_node_actual
-
-
 
     def initializeVisuals(self, distance):
         self.w = Visual(distance, self.start_node, self.goal_node, self.size)
         self.w.showMaze(self.actual_maze)
         self.w.showMaze(self.agent_maze)
 
-
-    def repeated_adaptive(self, start_node_actual, goal_node_actual):
+    def repeated_adaptive(self):
         start_node = self.start_node
         self.initializeVisuals(7)
-        Metrics().blockage_status_of_children(start_node, start_node_actual, self.w)
+        Metrics().blockage_status_of_children(start_node, self.start_node_actual, self.w)
         self.goal_node.update_g(float("inf"))
-
         lastClosedList = set()
         while start_node is not self.goal_node:
             if SolveMaze().adaptive_A_star(start_node, self.goal_node, lastClosedList, self.w) == 0:
@@ -66,10 +54,10 @@ class RepeatedAdaptive:
                 break
         mainloop()
 
-    def main(self):
-        start_node_actual, goal_node_actual = self.generate_random_start_and_goal_nodes()
-        # print(start_node_actual.x, start_node_actual.y, goal_node_actual.x, goal_node_actual.y)
-        self.repeated_adaptive(start_node_actual, goal_node_actual)
 
-
-RepeatedAdaptive(101).main()
+size = 20
+actual_maze = Maze().generate_actual_maze(size)
+agent_maze = Maze().generate_blank_maze(size)
+start_node_actual, goal_node_actual, start_node, goal_node = Metrics().generate_random_start_and_goal_nodes(
+            actual_maze, agent_maze, size)
+RepeatedAdaptive(size, actual_maze, agent_maze, start_node, goal_node, start_node_actual, goal_node_actual).repeated_adaptive()
