@@ -8,33 +8,37 @@ class Maze:
     def __init__(self):
         pass
 
-    def readfiftymazes(self):
-        f = open("SavedMazes", "rb")
-        mazeLibrary = pickle.load(f)
-        allActualMazes = []
+    def fifty_blank_mazes(self):
         blankMazes1 = []
         blankMazes2 = []
         blankMazes3 = []
         blankMazes4 = []
+        for i in range(50):
+            blankMazes1.append(Maze().generate_blank_maze(101))
+        for i in range(50):
+            blankMazes2.append(Maze().generate_blank_maze(101))
+        for i in range(50):
+            blankMazes3.append(Maze().generate_blank_maze(101))
+        for i in range(50):
+            blankMazes4.append(Maze().generate_blank_maze(101))
+        blank_mazes = [blankMazes1, blankMazes2, blankMazes3, blankMazes4]
+        return blank_mazes
 
+    def readfiftymazes(self):
+        f = open("SavedMazes", "rb")
+        mazeLibrary = pickle.load(f)
+        allActualMazes = []
         i = 0
         for m in mazeLibrary:
             i+=1
             maze = self.generate_blank_maze(101)
-            blankMazes1.append(maze)
-            blankMazes2.append(maze)
-            blankMazes3.append(maze)
-            blankMazes4.append(maze)
-
-
             for x in range(0, 101):
                 for y in range(0, 101):
                     if m[x][y] == 1:
                         maze[x][y].cost = float("inf")
             allActualMazes.append(maze)
 
-            blankMazes = [blankMazes1, blankMazes2, blankMazes3, blankMazes4]
-        return allActualMazes, blankMazes
+        return allActualMazes
 
     def generate_actual_maze(self, size):
         maze = Maze().generate_blank_maze(size)

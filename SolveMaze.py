@@ -81,17 +81,14 @@ class SolveMaze:
         start_node.update_g(float("inf"))
         open_list = OpenList()
         open_list.insert(goal_node)
-
         closed_list = set()
         while open_list.is_empty() is False:
             current = open_list.del_min()
-
             if current == start_node:
                 return
             if current in closed_list:
                 continue
             closed_list.add(current)
-
             w.inClosedB(current)
             #w.master.update()
             for i in range(0, 4):
@@ -110,8 +107,7 @@ class SolveMaze:
                     w.inOpen(child)
                     # w.master.update()
         w.master.update()
-
-        if open_list.is_empty() is True and goal_node not in closed_list:
+        if open_list.is_empty() is True and start_node not in closed_list:
             return 0
 
         return 1    
