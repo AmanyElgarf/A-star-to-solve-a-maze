@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a17bedc-5576-4b26-a99e-59e5abfe165c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Maze.py" beforeDir="false" afterPath="$PROJECT_DIR$/Maze.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/Metrics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RepeatedAdaptive.py" beforeDir="false" afterPath="$PROJECT_DIR$/RepeatedAdaptive.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RepeatedBackward.py" beforeDir="false" afterPath="$PROJECT_DIR$/RepeatedBackward.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RepeatedForward.py" beforeDir="false" afterPath="$PROJECT_DIR$/RepeatedForward.py" afterDir="false" />
@@ -32,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+            <state relative-caret-position="9">
+              <caret line="23" column="82" lean-forward="true" selection-start-line="23" selection-start-column="82" selection-end-line="23" selection-end-column="82" />
               <folding>
                 <element signature="e#1#22#0" expanded="true" />
               </folding>
@@ -44,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RepeatedBackward.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="57" column="129" lean-forward="true" selection-start-line="50" selection-start-column="1" selection-end-line="57" selection-end-column="129" />
+            <state relative-caret-position="161">
+              <caret line="47" column="67" lean-forward="true" selection-start-line="47" selection-start-column="67" selection-end-line="47" selection-end-column="67" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -56,7 +53,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Metrics.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
+            <state relative-caret-position="-21">
               <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
@@ -68,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RepeatedAdaptive.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="56" column="129" lean-forward="true" selection-start-line="50" selection-start-column="1" selection-end-line="56" selection-end-column="129" />
+            <state relative-caret-position="720">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -80,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RepeatedForward.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="54" column="127" lean-forward="true" selection-start-line="48" selection-start-column="1" selection-end-line="54" selection-end-column="127" />
+            <state relative-caret-position="371">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -104,8 +101,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Visual.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="93" column="17" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="17" />
+            <state relative-caret-position="89">
+              <caret line="91" column="24" selection-start-line="91" selection-start-column="24" selection-end-line="91" selection-end-column="24" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -116,8 +113,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SolveMaze.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+            <state relative-caret-position="1320">
+              <caret line="88" column="30" lean-forward="true" selection-start-line="88" selection-start-column="30" selection-end-line="88" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -125,7 +122,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OpenList.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
+            <state relative-caret-position="120">
               <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
@@ -161,6 +158,9 @@
       <find>Visual</find>
       <find>goalNode</find>
       <find>inCl</find>
+      <find>inClosedB</find>
+      <find>.up</find>
+      <find>current = self.colors[index]</find>
       <find>inC</find>
     </findStrings>
   </component>
@@ -188,14 +188,14 @@
         <option value="$PROJECT_DIR$/AdaptiveMain.py" />
         <option value="$PROJECT_DIR$/BackwardMain.py" />
         <option value="$PROJECT_DIR$/mm.py" />
-        <option value="$PROJECT_DIR$/Visual.py" />
         <option value="$PROJECT_DIR$/SolveMaze.py" />
         <option value="$PROJECT_DIR$/Maze.py" />
         <option value="$PROJECT_DIR$/Metrics.py" />
         <option value="$PROJECT_DIR$/Main.py" />
-        <option value="$PROJECT_DIR$/RepeatedBackward.py" />
-        <option value="$PROJECT_DIR$/RepeatedAdaptive.py" />
+        <option value="$PROJECT_DIR$/Visual.py" />
         <option value="$PROJECT_DIR$/RepeatedForward.py" />
+        <option value="$PROJECT_DIR$/RepeatedAdaptive.py" />
+        <option value="$PROJECT_DIR$/RepeatedBackward.py" />
       </list>
     </option>
   </component>
@@ -361,9 +361,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Main" />
+        <item itemvalue="Python.BackwardMain" />
         <item itemvalue="Python.Maze" />
         <item itemvalue="Python.ForwardMain" />
-        <item itemvalue="Python.BackwardMain" />
         <item itemvalue="Python.PicklingFiftyMazes" />
       </list>
     </recent_temporary>
@@ -384,12 +384,12 @@
       <workItem from="1563039133076" duration="2720000" />
       <workItem from="1563047424418" duration="7914000" />
       <workItem from="1563153990166" duration="22000" />
-      <workItem from="1563154064169" duration="8182000" />
+      <workItem from="1563154064169" duration="9144000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31151000" />
+    <option name="totallyTimeSpent" value="32113000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="840" extended-state="6" />
@@ -447,7 +447,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$PicklingFiftyMazes.coverage" NAME="PicklingFiftyMazes Coverage Results" MODIFIED="1563158640258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$ForwardMain.coverage" NAME="ForwardMain Coverage Results" MODIFIED="1563160089706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$Main.coverage" NAME="Main Coverage Results" MODIFIED="1563162425934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$Main.coverage" NAME="Main Coverage Results" MODIFIED="1563163065323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$Main__1_.coverage" NAME="Main (1) Coverage Results" MODIFIED="1563047067439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$Node.coverage" NAME="Node Coverage Results" MODIFIED="1562820013361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$Visual.coverage" NAME="Visual Coverage Results" MODIFIED="1563047587168" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -456,7 +456,7 @@
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$SolveMaze.coverage" NAME="SolveMaze Coverage Results" MODIFIED="1563052989773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$AdaptiveMain.coverage" NAME="AdaptiveMain Coverage Results" MODIFIED="1563158102665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$randomm.coverage" NAME="randomm Coverage Results" MODIFIED="1562545601552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$BackwardMain.coverage" NAME="BackwardMain Coverage Results" MODIFIED="1563159987848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$BackwardMain.coverage" NAME="BackwardMain Coverage Results" MODIFIED="1563163009944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Solving_a_maze_using_AStar_Algorithm$Maze.coverage" NAME="Maze Coverage Results" MODIFIED="1563160975639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
@@ -522,16 +522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OpenList.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -556,20 +546,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Visual.py">
+    <entry file="file://$PROJECT_DIR$/Maze.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="93" column="17" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="17" />
+        <state relative-caret-position="149">
+          <caret line="33" column="41" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="41" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OpenList.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SolveMaze.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+        <state relative-caret-position="1320">
+          <caret line="88" column="30" lean-forward="true" selection-start-line="88" selection-start-column="30" selection-end-line="88" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -583,30 +583,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Metrics.py">
+    <entry file="file://$PROJECT_DIR$/RepeatedForward.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Maze.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="33" column="41" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RepeatedBackward.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="57" column="129" lean-forward="true" selection-start-line="50" selection-start-column="1" selection-end-line="57" selection-end-column="129" />
+        <state relative-caret-position="371">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -615,28 +595,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RepeatedAdaptive.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="56" column="129" lean-forward="true" selection-start-line="50" selection-start-column="1" selection-end-line="56" selection-end-column="129" />
+        <state relative-caret-position="720">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RepeatedForward.py">
+    <entry file="file://$PROJECT_DIR$/Metrics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="54" column="127" lean-forward="true" selection-start-line="48" selection-start-column="1" selection-end-line="54" selection-end-column="127" />
+        <state relative-caret-position="-21">
+          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RepeatedBackward.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="47" column="67" lean-forward="true" selection-start-line="47" selection-start-column="67" selection-end-line="47" selection-end-column="67" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Visual.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="91" column="24" selection-start-line="91" selection-start-column="24" selection-end-line="91" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+        <state relative-caret-position="9">
+          <caret line="23" column="82" lean-forward="true" selection-start-line="23" selection-start-column="82" selection-end-line="23" selection-end-column="82" />
           <folding>
             <element signature="e#1#22#0" expanded="true" />
           </folding>

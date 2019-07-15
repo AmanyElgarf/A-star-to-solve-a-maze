@@ -38,8 +38,5 @@ class Main:
                                      goal_node_actual).repeated_adaptive()
 
 
-
-
-
 Main().main()
 

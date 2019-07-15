@@ -1,5 +1,4 @@
 from SolveMaze import SolveMaze
-from Maze import Maze
 from tkinter import *
 from Metrics import Metrics
 
@@ -47,11 +46,3 @@ class RepeatedAdaptive:
                 self.w.finalPath(self.actual_maze, self.solvedMaze)
                 break
         mainloop()
-
-#
-# size = 20
-# actual_maze = Maze().generate_actual_maze(size)
-# agent_maze = Maze().generate_blank_maze(size)
-# start_node_actual, goal_node_actual, start_node, goal_node = Metrics().generate_random_start_and_goal_nodes(
-#             actual_maze, agent_maze, size)
-# RepeatedAdaptive(size, actual_maze, agent_maze, start_node, goal_node, start_node_actual, goal_node_actual).repeated_adaptive()
