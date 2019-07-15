@@ -3,8 +3,9 @@ from SolveMaze import SolveMaze
 from Maze import Maze
 from Visual import Visual
 from tkinter import *
+from Metrics import Metrics
 
-class Main:
+class RepeatedAdaptive:
     def __init__(self, size):
         self.agent_maze = Maze().generate_blank_maze(size)
         self.actual_maze = Maze().generate_actual_maze(size)
@@ -24,28 +25,7 @@ class Main:
         self.goal_node = self.agent_maze[goal_node_actual.x][goal_node_actual.y]
         return start_node_actual, goal_node_actual
 
-    def traverse_path(self, goal_node, start_node):
-        path = [goal_node]
-        currentNode = goal_node
-        while currentNode is not start_node:
-            currentNode = currentNode.parent
-            path.append(currentNode)
-        return path
 
-    def blockage_status_of_children(self, start_node, start_node_actual):
-        if start_node_actual.right_child is not None:
-            start_node.right_child.cost = start_node_actual.right_child.cost
-            self.w.blocked(start_node.right_child)
-        if start_node_actual.left_child is not None:
-            start_node.left_child.cost = start_node_actual.left_child.cost
-            self.w.blocked(start_node.left_child)
-        if start_node_actual.top_child is not None:
-            start_node.top_child.cost = start_node_actual.top_child.cost
-            self.w.blocked(start_node.top_child)
-        if start_node_actual.down_child is not None:
-            start_node.down_child.cost = start_node_actual.down_child.cost
-            self.w.blocked(start_node.down_child)
-        self.w.master.update()
 
     def initializeVisuals(self, distance):
         self.w = Visual(distance, self.start_node, self.goal_node, self.size)
@@ -53,10 +33,10 @@ class Main:
         self.w.showMaze(self.agent_maze)
 
 
-    def repeated_adaptive(self, start_node_actual):
+    def repeated_adaptive(self, start_node_actual, goal_node_actual):
         start_node = self.start_node
         self.initializeVisuals(7)
-        self.blockage_status_of_children(start_node, start_node_actual)
+        Metrics().blockage_status_of_children(start_node, start_node_actual, self.w)
         self.goal_node.update_g(float("inf"))
 
         lastClosedList = set()
@@ -65,7 +45,7 @@ class Main:
                 print("I can't reach the target")
                 self.w.noPath()
                 break
-            path = self.traverse_path(self.goal_node, start_node)
+            path = Metrics().traverse_path(self.goal_node, start_node)
             path.reverse()
             self.w.pathLine(path)
             for i in path:
@@ -78,7 +58,7 @@ class Main:
                 else:
                     start_node = self.solvedMaze.pop()
                     start_node_actual = self.actual_maze[start_node.x][start_node.y]
-                    self.blockage_status_of_children(start_node, start_node_actual)
+                    Metrics().blockage_status_of_children(start_node, start_node_actual, self.w)
                     break
             if self.solvedMaze[len(self.solvedMaze)-1] == self.goal_node:
                 print("I reached the goal")
@@ -89,7 +69,7 @@ class Main:
     def main(self):
         start_node_actual, goal_node_actual = self.generate_random_start_and_goal_nodes()
         # print(start_node_actual.x, start_node_actual.y, goal_node_actual.x, goal_node_actual.y)
-        self.repeated_adaptive(start_node_actual)
+        self.repeated_adaptive(start_node_actual, goal_node_actual)
 
 
-Main(101).main()
+RepeatedAdaptive(101).main()
