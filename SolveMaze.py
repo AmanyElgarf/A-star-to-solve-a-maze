@@ -3,6 +3,7 @@ from OpenListInFavorOfSmallerG import OpenListInFavorOfSmallerG
 
 
 class SolveMaze:
+
     def forward_A_star(self, start_node,  goal_node, actual_maze, w):
         start_node.update_g(0)
         start_node.update_h(goal_node)

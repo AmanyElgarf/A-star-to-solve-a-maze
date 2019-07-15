@@ -3,13 +3,20 @@ from Visual import Visual
 
 
 class Metrics:
-    def traverse_path(self, goal_node, start_node):
+    def traverse_path(self, goal_node, start_node, algo_type):
+        if algo_type == 2:
+            start_node, goal_node = goal_node, start_node
         path = [goal_node]
         currentNode = goal_node
+
         while currentNode is not start_node:
             currentNode = currentNode.parent
             path.append(currentNode)
-        return path
+        x = []
+        for t in path:
+            x.append(t)
+        x.reverse()
+        return path, x
 
     def generate_random_start_and_goal_nodes(self, actual_maze, size):
         while True:

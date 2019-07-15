@@ -8,22 +8,6 @@ class Maze:
     def __init__(self):
         pass
 
-    def fifty_blank_mazes(self):
-        blankMazes1 = []
-        blankMazes2 = []
-        blankMazes3 = []
-        blankMazes4 = []
-        for i in range(50):
-            blankMazes1.append(Maze().generate_blank_maze(101))
-        for i in range(50):
-            blankMazes2.append(Maze().generate_blank_maze(101))
-        for i in range(50):
-            blankMazes3.append(Maze().generate_blank_maze(101))
-        for i in range(50):
-            blankMazes4.append(Maze().generate_blank_maze(101))
-        blank_mazes = [blankMazes1, blankMazes2, blankMazes3, blankMazes4]
-        return blank_mazes
-
     def readfiftymazes(self):
         f = open("SavedMazes", "rb")
         mazeLibrary = pickle.load(f)
@@ -91,7 +75,4 @@ class Maze:
             libOfMazes.append(maze)
         return libOfMazes
 
-
-mazes = Maze().readfiftymazes()
-master = Tk()
 
