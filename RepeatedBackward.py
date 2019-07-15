@@ -1,6 +1,6 @@
 from SolveMaze import SolveMaze
 from Maze import Maze
-from Visuall import Visuall
+from Visual import Visual
 from tkinter import *
 from Metrics import Metrics
 
@@ -18,7 +18,7 @@ class RepeatedBackward:
         self.w = None
 
     def initializeVisuals(self, distance):
-        self.w = Visuall(distance, self.start_node, self.goal_node, self.size)
+        self.w = Visual(distance, self.start_node, self.goal_node, self.size)
         self.w.showMaze(self.actual_maze)
         self.w.showMaze(self.agent_maze)
 

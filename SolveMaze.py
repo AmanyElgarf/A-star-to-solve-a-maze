@@ -36,6 +36,7 @@ class SolveMaze:
         if open_list.is_empty() is True and goal_node not in closed_list:
             return 0
         return 1
+
     def backward_A_star(self, start_node,  goal_node, actual_maze, w):
         goal_node.update_g(0)
         goal_node.update_h(start_node)
@@ -53,7 +54,7 @@ class SolveMaze:
                 continue
             closed_list.add(current)
 
-            w.inClosed(current)
+            w.inClosedB(current)
             #w.master.update()
             for i in range(0, 4):
                 child = current.traverse_children(i)

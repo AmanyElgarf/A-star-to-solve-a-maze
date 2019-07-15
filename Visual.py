@@ -91,6 +91,24 @@ class Visual:
         self.canvas.create_oval(x1+2, y1+2, x2-2, y2-2, fill=current, outline=current)
         #self.master.update()
 
+    def inClosedB(self, cell):
+        if (cell == self.startNode) or (cell == self.goalNode): return
+        percent = cell.h/self.goalNode.h
+        index = int(percent * 99)
+        while (index > 99):
+            percent = cell.g / self.startNode.g
+            index = 99-int(percent * 99)
+        current = self.colors[index]
+        x = cell.y * self.distance
+        y = cell.x * self.distance
+        x1 = x + self.distance
+        y1 = y + self.distance
+        x2 = x1 + self.distance
+        y2 = y1 + self.distance
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill="#FFFFFF", outline="#FFFFFF")
+        self.canvas.create_oval(x1+2, y1+2, x2-2, y2-2, fill=current, outline=current)
+        #self.master.update()
+
     def pathLine(self, steps):
         parent1 = steps.pop(0)
         parent = parent1
