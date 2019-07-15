@@ -3,7 +3,7 @@ from tkinter import *
 from Metrics import Metrics
 
 
-class RepeatedBackward:
+class RepeatedForwardInFavorOfSmallerG:
     def __init__(self, size, actual_maze, agent_maze, start_node, goal_node, start_node_actual, goal_node_actual):
         self.agent_maze = agent_maze
         self.actual_maze = actual_maze
@@ -15,21 +15,18 @@ class RepeatedBackward:
         self.goal_node_actual = goal_node_actual
         self.w = None
 
-    def repeated_backward(self):
+    def repeated_forward_in_favor_of_smaller_g(self):
         start_node = self.start_node
         self.w = Metrics().initializeVisuals(7, self.start_node, self.goal_node, self.size, self.actual_maze, self.agent_maze)
         Metrics().blockage_status_of_children(start_node, self.start_node_actual, self.w)
         while start_node is not self.goal_node:
-            if SolveMaze().backward_A_star(start_node, self.goal_node, self.agent_maze, self.w) == 0:
+            if SolveMaze().forward_A_star_in_favor_of_smaller_g(start_node, self.goal_node, self.agent_maze, self.w) == 0:
                 print("I can't reach the target")
                 self.w.noPath()
                 break
-            path = Metrics().traverse_path(start_node, self.goal_node)
-            x = []
-            for t in path:
-                x.append(t)
-            x.reverse()
-            self.w.pathLine(x)
+            path = Metrics().traverse_path(self.goal_node, start_node)
+            path.reverse()
+            self.w.pathLine(path)
             for i in path:
                 if i.cost == self.actual_maze[i.x][i.y].cost:
                     if i in self.solvedMaze:
@@ -47,4 +44,3 @@ class RepeatedBackward:
                 self.w.finalPath(self.actual_maze, self.solvedMaze)
                 break
         mainloop()
-

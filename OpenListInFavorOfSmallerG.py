@@ -2,7 +2,7 @@ from Node import Node
 import random
 
 
-class OpenList:
+class OpenListInFavorOfSmallerG:
     def __init__(self):
         self.heap = [Node(-9, -9)]
         self.current_size = 0
@@ -13,16 +13,16 @@ class OpenList:
         return False
 
     def parent_pos(self, child_pos):
-        return (int(child_pos/2))
+        return (int(child_pos / 2))
 
     def left_child_pos(self, parent_pos):
-        return int(parent_pos*2)
+        return int(parent_pos * 2)
 
     def right_child_pos(self, parent_pos):
         return int((parent_pos * 2) + 1)
 
     def is_leaf(self, pos):
-        if pos <= int(self.current_size/2):
+        if pos <= int(self.current_size / 2):
             return False
         return True
 
@@ -32,10 +32,10 @@ class OpenList:
     def swim(self, child_pos):
         while self.heap[self.parent_pos(child_pos)].f >= self.heap[child_pos].f and child_pos > 1:
             if self.heap[self.parent_pos(child_pos)].f == self.heap[child_pos].f:
-                if self.heap[self.parent_pos(child_pos)].g < self.heap[child_pos].g:
+                if self.heap[self.parent_pos(child_pos)].g > self.heap[child_pos].g:
                     self.swap(self.parent_pos(child_pos), child_pos)
                     break
-                elif self.heap[self.parent_pos(child_pos)].g > self.heap[child_pos].g:
+                elif self.heap[self.parent_pos(child_pos)].g < self.heap[child_pos].g:
                     break
                 elif self.heap[self.parent_pos(child_pos)].g == self.heap[child_pos].g:
                     intt = random.randint(0, 1)
@@ -46,12 +46,15 @@ class OpenList:
             child_pos = self.parent_pos(child_pos)
 
     def sink(self, parent_pos):
-        while ((self.is_leaf(parent_pos) is False) and (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.left_child_pos(parent_pos)].f or
-                                                         (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[self.right_child_pos(parent_pos)].f)) ):
+        while ((self.is_leaf(parent_pos) is False) and (
+                self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[
+            self.left_child_pos(parent_pos)].f or
+                (self.right_child_pos(parent_pos) <= self.current_size and self.heap[parent_pos].f > self.heap[
+                    self.right_child_pos(parent_pos)].f))):
             k = self.heap[self.left_child_pos(parent_pos)].f > self.heap[self.right_child_pos(parent_pos)].f
             if k is False:
                 if self.heap[self.left_child_pos(parent_pos)].f == self.heap[self.right_child_pos(parent_pos)].f:
-                    if self.heap[self.left_child_pos(parent_pos)].g < self.heap[self.right_child_pos(parent_pos)].g:
+                    if self.heap[self.left_child_pos(parent_pos)].g > self.heap[self.right_child_pos(parent_pos)].g:
                         k = True
                     elif self.heap[self.left_child_pos(parent_pos)].g == self.heap[self.right_child_pos(parent_pos)].g:
                         intt = random.randint(0, 1)
@@ -97,7 +100,7 @@ class OpenList:
         return min
 
     def print(self):
-        for i in range(1, self.current_size+1):
+        for i in range(1, self.current_size + 1):
             print(self.heap[i].f, "(", self.heap[i].x, ", ", self.heap[i].y, ")")
 
 

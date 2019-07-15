@@ -1,6 +1,7 @@
 from colour import Color
 from tkinter import *
 
+
 class Visual:
     def __init__(self, distance, start, goal, size):
         self.master = Tk()

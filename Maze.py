@@ -15,6 +15,7 @@ class Maze:
         blankMazes1 = []
         blankMazes2 = []
         blankMazes3 = []
+        blankMazes4 = []
 
         i = 0
         for m in mazeLibrary:
@@ -23,6 +24,8 @@ class Maze:
             blankMazes1.append(maze)
             blankMazes2.append(maze)
             blankMazes3.append(maze)
+            blankMazes4.append(maze)
+
 
             for x in range(0, 101):
                 for y in range(0, 101):
@@ -30,7 +33,7 @@ class Maze:
                         maze[x][y].cost = float("inf")
             allActualMazes.append(maze)
 
-            blankMazes = [blankMazes1, blankMazes2, blankMazes3]
+            blankMazes = [blankMazes1, blankMazes2, blankMazes3, blankMazes4]
         return allActualMazes, blankMazes
 
     def generate_actual_maze(self, size):
