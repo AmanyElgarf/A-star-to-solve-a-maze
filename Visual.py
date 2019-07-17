@@ -135,6 +135,7 @@ class Visual:
             parent = current
             self.master.update()
         steps.insert(0, parent1)
+        self.master.after(800)
         return steps
 
     def finalPath(self, maze, steps):
