@@ -143,7 +143,8 @@ class SolveMaze:
                     if ( len(lastClosedList)==0 and lastGoalCost == float("inf")) or (child.h == 0):
                         child.update_h(goal_node)
                     elif child in lastClosedList:
-                        child.update_hnew(lastGoalCost)
+                        if (child.f < lastGoalCost):
+                            child.update_hnew(lastGoalCost)
                     child.update_g(float("inf"))
                 if child.g > current.g + child.cost:
                     newG = current.g + child.cost
