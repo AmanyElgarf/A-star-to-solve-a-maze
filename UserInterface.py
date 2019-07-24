@@ -8,7 +8,7 @@ import random
 class UserInterface:
 
     def __init__(self):
-        self.actual_maze = Maze().readfiftymazes()[random.randint(0, 50)]
+        self.actual_maze = Maze().readfiftymazes()[random.randint(0, 49)]
         self.blank_maze = None
         self.size = 101
         self.start_node_actual, self.goal_node_actual = Metrics().generate_random_start_and_goal_nodes(
